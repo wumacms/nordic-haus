@@ -2,13 +2,15 @@ name: 部署网站到 GitHub Pages
 
 on:
   push:
-    branches: ["main"] # 监听 main 分支的推送事件
+    branches: ["main"]
 
-# 设置权限以允许部署到 GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-and-deploy:
@@ -17,10 +19,17 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          # 可以指定版本，也可以设为 latest
+          version: latest
+
       - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
+          # 注意：这里 cache 改为 pnpm
           cache: "pnpm"
 
       - name: 安装依赖
@@ -30,12 +39,11 @@ jobs:
         run: pnpm run build
 
       - name: 配置 Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: 上传构建产物
         uses: actions/upload-pages-artifact@v3
         with:
-          # Vite 默认输出目录是 dist
           path: "./dist"
 
       - name: 部署到 GitHub Pages
