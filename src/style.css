@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* 关键自定义变体：手动控制 .dark 类 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 设置全局基础样式，确保切换时背景平滑 */
+@layer base {
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
