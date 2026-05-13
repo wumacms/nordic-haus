@@ -97,7 +97,7 @@ onMounted(() => {
                     <div class="flex items-center gap-4">
                         <button @click="toggleTheme"
                             class="w-10 p-2 rounded-full bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 transition active:scale-95">
-                            <i :class="isDark ? 'fas fa-moon' : 'fas fa-sun'"
+                            <i :class="isDark ? 'fas fa-sun' : 'fas fa-moon'"
                                 class="text-stone-700 dark:text-stone-300"></i>
                         </button>
                     </div>
